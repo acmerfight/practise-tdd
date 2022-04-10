@@ -11,12 +11,12 @@ class ArgsTest {
 
     @Test
     @Disabled
-    public void should_example_1() {
-        Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");
+    public void should_parse_multi_options() {
+        MultiOptions multiOptions = Args.parse(MultiOptions.class, "-l", "-p", "8080", "-d", "/usr/logs");
 
-        assertTrue(options.logging());
-        assertEquals(options.port(), 8080);
-        assertEquals(options.directory(), "/usr/logs");
+        assertTrue(multiOptions.logging());
+        assertEquals(multiOptions.port(), 8080);
+        assertEquals(multiOptions.directory(), "/usr/logs");
     }
 
     @Test
@@ -28,8 +28,8 @@ class ArgsTest {
     }
 
 
-    static record Options(@Option("l") boolean logging, @Option("p") int port,
-                          @Option("d") String directory) {
+    static record MultiOptions(@Option("l") boolean logging, @Option("p") int port,
+                               @Option("d") String directory) {
     }
 
     static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
