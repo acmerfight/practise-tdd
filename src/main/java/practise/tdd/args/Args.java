@@ -7,6 +7,10 @@
 package practise.tdd.args;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author yaogangqiang
@@ -17,7 +21,12 @@ public class Args {
         try {
             Constructor<?> constructor = optionsClass.getDeclaredConstructors()[0];
             System.out.println(optionsClass.getDeclaredConstructors()[0]);
-            return (T) constructor.newInstance(true);
+            Parameter parameter = constructor.getParameters()[0];
+            System.out.println(parameter);
+            Option option = parameter.getAnnotation(Option.class);
+            System.out.println(option.value());
+            List<String> arguments = Arrays.asList(args);
+            return (T) constructor.newInstance(arguments.contains("-" + option.value()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

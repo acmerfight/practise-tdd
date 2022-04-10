@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ArgsTest {
@@ -40,5 +41,12 @@ class ArgsTest {
         assertTrue(option.logging());
     }
 
-    static record BooleanOption(@Option("l") boolean logging){}
+    @Test
+    public void should_set_boolean_option_to_false_if_flag_not_present() {
+        BooleanOption option = Args.parse(BooleanOption.class);
+        assertFalse(option.logging());
+    }
+
+    static record BooleanOption(@Option("l") boolean logging) {
+    }
 }
