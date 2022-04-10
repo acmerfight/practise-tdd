@@ -10,13 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ArgsTest {
 
     @Test
-    @Disabled
     public void should_parse_multi_options() {
         MultiOptions multiOptions = Args.parse(MultiOptions.class, "-l", "-p", "8080", "-d", "/usr/logs");
 
         assertTrue(multiOptions.logging());
         assertEquals(multiOptions.port(), 8080);
         assertEquals(multiOptions.directory(), "/usr/logs");
+    }
+
+    static record MultiOptions(@Option("l") boolean logging, @Option("p") int port,
+                               @Option("d") String directory) {
     }
 
     @Test
@@ -27,10 +30,6 @@ class ArgsTest {
         assertEquals(listOptions.decimals(), new int[]{1, 2, -3, 5});
     }
 
-
-    static record MultiOptions(@Option("l") boolean logging, @Option("p") int port,
-                               @Option("d") String directory) {
-    }
 
     static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
@@ -65,5 +64,6 @@ class ArgsTest {
         assertEquals("/usr/logs", option.directory());
     }
 
-    static record StringOption(@Option("d") String directory) {}
+    static record StringOption(@Option("d") String directory) {
+    }
 }
