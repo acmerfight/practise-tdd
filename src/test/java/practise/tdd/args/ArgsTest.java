@@ -1,5 +1,6 @@
 package practise.tdd.args;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ArgsTest {
 
     @Test
+    @Disabled
     public void should_example_1() {
         Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");
 
@@ -17,6 +19,7 @@ class ArgsTest {
     }
 
     @Test
+    @Disabled
     public void should_example_2() {
         ListOptions listOptions = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
         assertEquals(listOptions.group(), new String[]{"this", "is", "a", "list"});
@@ -30,4 +33,12 @@ class ArgsTest {
 
     static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
+
+    @Test
+    public void should_set_boolean_option_to_true_if_flag_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+        assertTrue(option.logging());
+    }
+
+    static record BooleanOption(@Option("l") boolean logging){}
 }
