@@ -30,16 +30,17 @@ public class Args {
     private static Object parseOption(Parameter parameter, List<String> arguments) {
         Object value = null;
         Option option = parameter.getAnnotation(Option.class);
+        OptionParser parser = null;
         if (parameter.getType() == boolean.class) {
-            value = new BooleanOptionParser().parse(arguments, option);
+            parser = new BooleanOptionParser();
         }
         if (parameter.getType() == int.class) {
-            value = new IntOptionParser().parse(arguments, option);
+            parser = new IntOptionParser();
         }
         if (parameter.getType() == String.class) {
-            value = new StringOptionParser().parse(arguments, option);
+            parser = new StringOptionParser();
         }
-        return value;
+        return parser.parse(arguments, option);
     }
 
     interface OptionParser {
