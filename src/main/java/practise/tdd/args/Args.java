@@ -46,7 +46,7 @@ public class Args {
         Object parse(List<String> arguments, Option option);
     }
 
-    static class BooleanParser implements OptionParser {
+    static class BooleanOptionParser implements OptionParser {
 
         @Override
         public Object parse(List<String> arguments, Option option) {
@@ -54,7 +54,7 @@ public class Args {
         }
     }
 
-    static class StringParser implements OptionParser {
+    static class StringOptionParser implements OptionParser {
 
         @Override
         public Object parse(List<String> arguments, Option option) {
@@ -63,7 +63,7 @@ public class Args {
         }
     }
 
-    static class IntParser implements OptionParser {
+    static class IntOptionParser implements OptionParser {
 
         @Override
         public Object parse(List<String> arguments, Option option) {
@@ -73,14 +73,14 @@ public class Args {
     }
 
     private static Object parseString(List<String> arguments, Option option) {
-        return new StringParser().parse(arguments, option);
+        return new StringOptionParser().parse(arguments, option);
     }
 
     private static Object parseInt(List<String> arguments, Option option) {
-        return new IntParser().parse(arguments, option);
+        return new IntOptionParser().parse(arguments, option);
     }
 
     private static Object parseBoolean(List<String> arguments, Option option) {
-        return new BooleanParser().parse(arguments, option);
+        return new BooleanOptionParser().parse(arguments, option);
     }
 }
