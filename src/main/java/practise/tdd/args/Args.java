@@ -10,6 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yaogangqiang
@@ -27,50 +28,16 @@ public class Args {
         }
     }
 
+    private static final Map<Class<?>, OptionParser> PARSERS = Map.of(
+            boolean.class, new BooleanOptionParser(),
+            int.class, new IntOptionParser(),
+            String.class, new StringOptionParser()
+    );
+
     private static Object parseOption(Parameter parameter, List<String> arguments) {
-        Object value = null;
         Option option = parameter.getAnnotation(Option.class);
-        OptionParser parser = null;
-        if (parameter.getType() == boolean.class) {
-            parser = new BooleanOptionParser();
-        }
-        if (parameter.getType() == int.class) {
-            parser = new IntOptionParser();
-        }
-        if (parameter.getType() == String.class) {
-            parser = new StringOptionParser();
-        }
+        OptionParser parser = PARSERS.get(parameter.getType());
         return parser.parse(arguments, option);
-    }
-
-    interface OptionParser {
-        Object parse(List<String> arguments, Option option);
-    }
-
-    static class BooleanOptionParser implements OptionParser {
-
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            return arguments.contains("-" + option.value());
-        }
-    }
-
-    static class StringOptionParser implements OptionParser {
-
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            int index = arguments.indexOf("-" + option.value());
-            return arguments.get(index + 1);
-        }
-    }
-
-    static class IntOptionParser implements OptionParser {
-
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            int index = arguments.indexOf("-" + option.value());
-            return Integer.parseInt(arguments.get(index + 1));
-        }
     }
 
 }
