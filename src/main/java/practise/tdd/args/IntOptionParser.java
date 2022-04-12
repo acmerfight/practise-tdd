@@ -7,11 +7,21 @@
 package practise.tdd.args;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author yaogangqiang
  */
 class IntOptionParser implements OptionParser {
+
+    Function<String, Object> valueParser = Integer::parseInt;
+
+    public IntOptionParser() {
+    }
+
+    public IntOptionParser(Function<String, Object> valueParser) {
+        this.valueParser = valueParser;
+    }
 
     @Override
     public Object parse(List<String> arguments, Option option) {
@@ -21,6 +31,6 @@ class IntOptionParser implements OptionParser {
     }
 
     protected Object parseValue(String value) {
-        return Integer.parseInt(value);
+        return valueParser.apply(value);
     }
 }
