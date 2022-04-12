@@ -6,16 +6,13 @@
  */
 package practise.tdd.args;
 
-import java.util.List;
-
 /**
  * @author yaogangqiang
  */
-class StringOptionParser implements OptionParser {
+class StringOptionParser extends IntOptionParser {
 
     @Override
-    public Object parse(List<String> arguments, Option option) {
-        int index = arguments.indexOf("-" + option.value());
-        return arguments.get(index + 1);
+    protected Object parseValue(String value) {
+        return String.valueOf(value);
     }
 }

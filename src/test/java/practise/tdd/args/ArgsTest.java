@@ -18,7 +18,7 @@ class ArgsTest {
         assertEquals(multiOptions.directory(), "/usr/logs");
     }
 
-    static record MultiOptions(@Option("l") boolean logging, @Option("p") int port,
+    record MultiOptions(@Option("l") boolean logging, @Option("p") int port,
                                @Option("d") String directory) {
     }
 
@@ -31,7 +31,7 @@ class ArgsTest {
     }
 
 
-    static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
+    record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
 
     @Test
@@ -46,7 +46,7 @@ class ArgsTest {
         assertFalse(option.logging());
     }
 
-    static record BooleanOption(@Option("l") boolean logging) {
+    record BooleanOption(@Option("l") boolean logging) {
     }
 
     @Test
@@ -55,7 +55,7 @@ class ArgsTest {
         assertEquals(8080, option.port());
     }
 
-    static record IntOption(@Option("p") int port) {
+    record IntOption(@Option("p") int port) {
     }
 
     @Test
@@ -64,6 +64,6 @@ class ArgsTest {
         assertEquals("/usr/logs", option.directory());
     }
 
-    static record StringOption(@Option("d") String directory) {
+    record StringOption(@Option("d") String directory) {
     }
 }
