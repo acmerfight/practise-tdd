@@ -11,11 +11,7 @@ package practise.tdd.args;
  */
 class StringOptionParser extends IntOptionParser {
 
-    private StringOptionParser() {
-        super(String::valueOf);
-    }
-
-    public static StringOptionParser createStringOptionParser() {
-        return new StringOptionParser();
+    public static OptionParser createStringOptionParser() {
+        return new IntOptionParser(String::valueOf);
     }
 }
