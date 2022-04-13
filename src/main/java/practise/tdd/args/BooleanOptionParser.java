@@ -17,4 +17,5 @@ class BooleanOptionParser implements OptionParser {
     public Object parse(List<String> arguments, Option option) {
         return arguments.contains("-" + option.value());
     }
+
 }

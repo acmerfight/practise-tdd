@@ -66,4 +66,6 @@ class ArgsTest {
 
     record StringOption(@Option("d") String directory) {
     }
+
+
 }
