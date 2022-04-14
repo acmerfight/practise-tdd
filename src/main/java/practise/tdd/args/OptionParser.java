@@ -11,6 +11,6 @@ import java.util.List;
 /**
  * @author yaogangqiang
  */
-interface OptionParser {
-    Object parse(List<String> arguments, Option option);
+interface OptionParser<T> {
+    T parse(List<String> arguments, Option option);
 }

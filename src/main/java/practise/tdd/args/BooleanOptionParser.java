@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * @author yaogangqiang
  */
-class BooleanOptionParser implements OptionParser {
+class BooleanOptionParser implements OptionParser<Boolean> {
 
     @Override
-    public Object parse(List<String> arguments, Option option) {
+    public Boolean parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());
-        if (!arguments.get(index + 1).startsWith("-")) {
+        if (index + 1 < arguments.size() && !arguments.get(index + 1).startsWith("-")) {
             throw new TooManyArgumentsException(option.value());
         }
         return index != -1;

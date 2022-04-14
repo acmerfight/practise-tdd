@@ -12,7 +12,7 @@ import java.util.function.Function;
 /**
  * @author yaogangqiang
  */
-class SingleValuedOptionParser<T> implements OptionParser {
+class SingleValuedOptionParser<T> implements OptionParser<T> {
 
     Function<String, T> valueParser;
 
