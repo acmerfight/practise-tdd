@@ -14,15 +14,20 @@ import java.util.function.Function;
  */
 class SingleValuedOptionParser<T> implements OptionParser<T> {
 
+    private T defaultValue;
     Function<String, T> valueParser;
 
-    public SingleValuedOptionParser(Function<String, T> valueParser) {
+    public SingleValuedOptionParser(T defaultValue, Function<String, T> valueParser) {
+        this.defaultValue = defaultValue;
         this.valueParser = valueParser;
     }
 
     @Override
     public T parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());
+        if (index == -1) {
+            return defaultValue;
+        }
         if (index + 1 == arguments.size() || arguments.get(index + 1).startsWith("-")) {
             throw new InsufficientArgumentsException(option.value());
         }
