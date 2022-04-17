@@ -3,6 +3,7 @@ package practise.tdd.args;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import practise.tdd.args.ArgsTest.IntOption;
 
 import java.util.List;
 
@@ -33,4 +34,10 @@ class SingleValuedOptionParserTest {
     void should_set_default_value_to_0_for_int_option() {
         assertEquals(0, new SingleValuedOptionParser<>(0, Integer::parseInt).parse(List.of(), option("p")));
     }
+
+    @Test
+    public void should_parse_int_as_option_value() {
+        assertEquals(8080, new SingleValuedOptionParser<>(0, Integer::parseInt).parse(asList("-p", "8080"), option("p")));
+    }
+
 }

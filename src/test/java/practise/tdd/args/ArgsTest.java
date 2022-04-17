@@ -33,16 +33,6 @@ class ArgsTest {
     record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
 
-
-    @Test
-    public void should_parse_int_as_option_value() {
-        IntOption option = Args.parse(IntOption.class, "-p", "8080");
-        assertEquals(8080, option.port());
-    }
-
-    record IntOption(@Option("p") int port) {
-    }
-
     @Test
     public void should_get_string_as_option_value() {
         StringOption option = Args.parse(StringOption.class, "-d", "/usr/logs");
