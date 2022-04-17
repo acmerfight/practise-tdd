@@ -1,6 +1,8 @@
 package practise.tdd.args;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -17,10 +19,12 @@ class SingleValuedOptionParserTest {
         assertEquals("p", e.getOption());
     }
 
-    @Test
-    void should_not_accept_insufficient_argument_for_single_valued_option() {
+    @ParameterizedTest
+    @ValueSource(strings = {"-p -l", "-p"})
+    void should_not_accept_insufficient_argument_for_single_valued_option(String input) {
+        List<String> arguments = asList(input.split(" "));
         InsufficientArgumentsException e = assertThrows(InsufficientArgumentsException.class,
-                () -> new SingleValuedOptionParser<>(Integer::parseInt).parse(List.of("-p", "-l"), option("p")));
+                () -> new SingleValuedOptionParser<>(Integer::parseInt).parse(arguments, option("p")));
         assertEquals("p", e.getOption());
 
     }
