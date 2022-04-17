@@ -9,6 +9,7 @@ package practise.tdd.args;
 import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,12 +32,12 @@ public class BooleanOptionParserTest {
 
     @Test
     void should_set_default_value_to_false_if_option_not_present(){
-        assertFalse(new BooleanOptionParser().parse(asList(), option("l")));
+        assertFalse(new BooleanOptionParser().parse(List.of(), option("l")));
     }
 
     @Test
     void should_set_default_value_to_true_if_option_present(){
-        assertTrue(new BooleanOptionParser().parse(asList("-l"), option("l")));
+        assertTrue(new BooleanOptionParser().parse(List.of("-l"), option("l")));
     }
 
     static Option option(String value) {
