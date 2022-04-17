@@ -3,12 +3,12 @@ package practise.tdd.args;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import practise.tdd.args.ArgsTest.IntOption;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static practise.tdd.args.BooleanOptionParserTest.option;
 
 class SingleValuedOptionParserTest {
