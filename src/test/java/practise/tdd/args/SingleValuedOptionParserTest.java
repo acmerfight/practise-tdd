@@ -5,9 +5,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static practise.tdd.args.BooleanOptionParserTest.option;
 
@@ -31,8 +33,10 @@ class SingleValuedOptionParserTest {
     }
 
     @Test
-    void should_set_default_value_to_0_for_int_option() {
-        assertEquals(0, new SingleValuedOptionParser<>(0, Integer::parseInt).parse(List.of(), option("p")));
+    void should_set_default_value_for_single_valued_option() {
+        Function<String, Object> whatever = (it) -> null;
+        Object defaultValue = new Object();
+        assertSame(defaultValue, new SingleValuedOptionParser<>(defaultValue, whatever).parse(List.of(), option("p")));
     }
 
     @Test
