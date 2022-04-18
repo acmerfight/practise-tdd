@@ -23,7 +23,10 @@ public class Args {
             List<String> arguments = Arrays.asList(args);
             Object[] values = Arrays.stream(constructor.getParameters()).map(it -> parseOption(it, arguments)).toArray();
             return (T) constructor.newInstance(values);
-        } catch (Exception e) {
+        } catch (IllegalOptionException e) {
+            throw e;
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -35,6 +38,9 @@ public class Args {
     );
 
     private static Object parseOption(Parameter parameter, List<String> arguments) {
+        if (!parameter.isAnnotationPresent(Option.class)) {
+            throw new IllegalOptionException(parameter.getName());
+        }
         Option option = parameter.getAnnotation(Option.class);
         OptionParser parser = PARSERS.get(parameter.getType());
         return parser.parse(arguments, option);
