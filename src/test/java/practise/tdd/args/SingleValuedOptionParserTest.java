@@ -45,7 +45,7 @@ class SingleValuedOptionParserTest {
         Object parsed = new Object();
         Function<String, Object> parse = (it) -> parsed;
         Object whatever = new Object();
-        assertEquals(parsed, new SingleValuedOptionParser<>(whatever, parse).parse(asList("-p", "8080"), option("p")));
+        assertSame(parsed, new SingleValuedOptionParser<>(whatever, parse).parse(asList("-p", "8080"), option("p")));
     }
 
 }
