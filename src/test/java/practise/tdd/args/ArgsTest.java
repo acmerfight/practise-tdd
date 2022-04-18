@@ -44,15 +44,4 @@ class ArgsTest {
 
     record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
-
-    @Test
-    public void should_get_string_as_option_value() {
-        StringOption option = Args.parse(StringOption.class, "-d", "/usr/logs");
-        assertEquals("/usr/logs", option.directory());
-    }
-
-    record StringOption(@Option("d") String directory) {
-    }
-
-
 }
