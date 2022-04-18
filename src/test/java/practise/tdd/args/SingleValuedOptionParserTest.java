@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import static java.util.Arrays.asList;
@@ -40,8 +41,11 @@ class SingleValuedOptionParserTest {
     }
 
     @Test
-    public void should_parse_int_as_option_value() {
-        assertEquals(8080, new SingleValuedOptionParser<>(0, Integer::parseInt).parse(asList("-p", "8080"), option("p")));
+    public void should_parse_value_if_flag_present() {
+        Object parsed = new Object();
+        Function<String, Object> parse = (it) -> parsed;
+        Object whatever = new Object();
+        assertEquals(parsed, new SingleValuedOptionParser<>(whatever, parse).parse(asList("-p", "8080"), option("p")));
     }
 
 }
