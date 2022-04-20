@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  */
 class SingleValuedOptionParser<T> implements OptionParser<T> {
 
-    private T defaultValue;
+    private final T defaultValue;
     Function<String, T> valueParser;
 
     public SingleValuedOptionParser(T defaultValue, Function<String, T> valueParser) {
