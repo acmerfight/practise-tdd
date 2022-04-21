@@ -8,6 +8,8 @@ package practise.tdd.args;
 
 import java.util.List;
 
+import static practise.tdd.args.SingleValuedOptionParser.values;
+
 /**
  * @author yaogangqiang
  */
@@ -15,11 +17,6 @@ class BooleanOptionParser implements OptionParser<Boolean> {
 
     @Override
     public Boolean parse(List<String> arguments, Option option) {
-        int index = arguments.indexOf("-" + option.value());
-        List<String> values = SingleValuedOptionParser.getValues(arguments, index);
-        if (values.size() > 0){
-            throw new TooManyArgumentsException(option.value());
-        }
-        return index != -1;
+        return values(arguments, option, 0).isPresent();
     }
 }
