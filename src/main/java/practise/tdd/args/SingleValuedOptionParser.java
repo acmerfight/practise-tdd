@@ -24,6 +24,10 @@ class SingleValuedOptionParser<T> implements OptionParser<T> {
         this.valueParser = valueParser;
     }
 
+    public static OptionParser<Boolean> bool() {
+        return (arguments, option) -> values(arguments, option, 0).isPresent();
+    }
+
     @Override
     public T parse(List<String> arguments, Option option) {
         Optional<List<String>> argumentList = values(arguments, option, 1);
