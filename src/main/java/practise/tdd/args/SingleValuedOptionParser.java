@@ -14,27 +14,20 @@ import java.util.stream.IntStream;
 /**
  * @author yaogangqiang
  */
-class SingleValuedOptionParser<T> implements OptionParser<T> {
-
-    private final T defaultValue;
-    Function<String, T> valueParser;
-
-    public SingleValuedOptionParser(T defaultValue, Function<String, T> valueParser) {
-        this.defaultValue = defaultValue;
-        this.valueParser = valueParser;
-    }
+class SingleValuedOptionParser {
 
     public static OptionParser<Boolean> bool() {
         return (arguments, option) -> values(arguments, option, 0).isPresent();
     }
 
-    @Override
-    public T parse(List<String> arguments, Option option) {
-        Optional<List<String>> argumentList = values(arguments, option, 1);
-        return argumentList.map(it -> parseValue(option, it.get(0))).orElse(defaultValue);
+    public static <T> OptionParser<T> unary(T defaultValue, Function<String, T> valueParser) {
+        return ((arguments, option) -> {
+            Optional<List<String>> argumentList = values(arguments, option, 1);
+            return argumentList.map(it -> parseValue(option, it.get(0), valueParser)).orElse(defaultValue);
+        });
     }
 
-    static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
+    private static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
         int index = arguments.indexOf("-" + option.value());
         if (index == -1) {
             return Optional.empty();
@@ -49,7 +42,7 @@ class SingleValuedOptionParser<T> implements OptionParser<T> {
         return Optional.of(values);
     }
 
-    private T parseValue(Option option, String value) {
+    private static <T> T parseValue(Option option, String value, Function<String, T> valueParser) {
         try {
             return valueParser.apply(value);
         } catch (Exception e) {
@@ -57,7 +50,7 @@ class SingleValuedOptionParser<T> implements OptionParser<T> {
         }
     }
 
-    static List<String> getValues(List<String> arguments, int index) {
+    private static List<String> getValues(List<String> arguments, int index) {
         int followingFlag = IntStream.range(index + 1, arguments.size())
                 .filter(it -> arguments.get(it).startsWith("-"))
                 .findFirst().orElse(arguments.size());
