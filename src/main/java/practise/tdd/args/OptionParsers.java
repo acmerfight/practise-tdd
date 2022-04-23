@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 /**
  * @author yaogangqiang
  */
-class SingleValuedOptionParser {
+class OptionParsers {
 
     public static OptionParser<Boolean> bool() {
         return (arguments, option) -> values(arguments, option, 0).isPresent();
