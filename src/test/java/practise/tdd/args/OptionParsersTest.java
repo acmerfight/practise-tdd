@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -79,6 +80,17 @@ class OptionParsersTest {
 
 
     }
+
+    @Nested
+    class ListOptionParser {
+
+        @Test
+        public void should_parse_list_value() {
+            String[] value = OptionParsers.list(String::valueOf).parse(asList("-g", "this", "is"), option("g"));
+            assertArrayEquals(new String[]{"this", "is"}, value);
+        }
+    }
+
     static Option option(String value) {
         return new Option() {
 

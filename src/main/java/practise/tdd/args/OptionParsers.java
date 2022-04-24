@@ -27,6 +27,10 @@ class OptionParsers {
         });
     }
 
+    public static <T> OptionParser<T[]> list(Function<String, T> valueParser) {
+        return null;
+    }
+
     private static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
         int index = arguments.indexOf("-" + option.value());
         if (index == -1) {
