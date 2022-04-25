@@ -9,6 +9,7 @@ package practise.tdd.args;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 /**
@@ -27,8 +28,18 @@ class OptionParsers {
         });
     }
 
-    public static <T> OptionParser<T[]> list(Function<String, T> valueParser) {
-        return null;
+    public static <T> OptionParser<T[]> list(IntFunction<T[]> generator, Function<String, T> valueParser) {
+        return (arguments, option) -> values(arguments, option)
+                .map(it -> it.stream().map(value -> parseValue(option, value, valueParser))
+                        .toArray(generator)).orElse(generator.apply(0));
+    }
+
+    private static Optional<List<String>> values(List<String> arguments, Option option) {
+        int index = arguments.indexOf("-" + option.value());
+        if (index == -1) {
+            return Optional.empty();
+        }
+        return Optional.of(getValues(arguments, index));
     }
 
     private static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
