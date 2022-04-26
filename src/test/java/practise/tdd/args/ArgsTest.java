@@ -3,6 +3,7 @@ package practise.tdd.args;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,14 +35,12 @@ class ArgsTest {
     }
 
     @Test
-    @Disabled
     public void should_example_2() {
-        ListOptions listOptions = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
-        assertEquals(listOptions.group(), new String[]{"this", "is", "a", "list"});
-        assertEquals(listOptions.decimals(), new int[]{1, 2, -3, 5});
+        ListOptions listOptions = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list");
+        assertArrayEquals(listOptions.group(), new String[]{"this", "is", "a", "list"});
     }
 
 
-    record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
+    record ListOptions(@Option("g") String[] group) {
     }
 }

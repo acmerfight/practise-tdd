@@ -95,6 +95,12 @@ class OptionParsersTest {
             String[] value = OptionParsers.list(String[]::new, String::valueOf).parse(List.of(), option("g"));
             assertEquals(0, value.length);
         }
+
+        @Test
+        public void should_throw_exception() {
+            String[] value = OptionParsers.list(String[]::new, String::valueOf).parse(List.of(), option("g"));
+            assertEquals(0, value.length);
+        }
     }
 
     static Option option(String value) {
