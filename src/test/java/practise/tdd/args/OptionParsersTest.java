@@ -89,6 +89,12 @@ class OptionParsersTest {
             String[] value = OptionParsers.list(String[]::new, String::valueOf).parse(asList("-g", "this", "is"), option("g"));
             assertArrayEquals(new String[]{"this", "is"}, value);
         }
+
+        @Test
+        public void should_use_empty_array_as_default_value() {
+            String[] value = OptionParsers.list(String[]::new, String::valueOf).parse(List.of(), option("g"));
+            assertEquals(0, value.length);
+        }
     }
 
     static Option option(String value) {
